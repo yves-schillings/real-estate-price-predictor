@@ -39,6 +39,10 @@ print_error() {
 print_blue "Activating virtual environment..."
 source .venv/Scripts/activate || print_error "Failed to activate virtual environment. Is it created?"
 
+# === Clean previous models ===
+print_blue "Cleaning old trained models..."
+rm -f local_models/*/*.pkl || print_error "Failed to clean old model files."
+
 # === Run the training script ===
 print_blue "Launching dataset-wide training for all models..."
 PYTHONPATH=. python scripts/train_all_datasets.py || print_error "Training failed."
